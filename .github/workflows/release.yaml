@@ -1,0 +1,25 @@
+name: Release Module
+on:
+ push:
+   paths-ignore:
+     - ".github/**"
+   branches:
+     - main
+jobs:
+ release:
+   name: Release
+   runs-on: ubuntu-latest
+   steps:
+     - name: Checkout
+       uses: actions/checkout@v3
+       with:
+         fetch-depth: 0
+     - name: Release
+       id: release
+       uses: anothrNick/github-tag-action@1.67.0
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         WITH_V: true
+         DEFAULT_BUMP: patch
+         RELEASE_BRANCHES: main
+         DEFAULT_BRANCH: main
